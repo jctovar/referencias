@@ -18,14 +18,27 @@ angular.module('main.controllers', ['main.models'])
         });
     }
 })
-.controller('editCtrl', function ($scope, $route, $routeParams, $location, references) {
-    console.log($routeParams.referenceId);
+.controller('editCtrl', function ($scope, $route, $routeParams, $location, references, events) {
+   
+    var list = events.get(function () {
+      $scope.list = list.events; 
+    });
     
     var query = references.get({ id: $routeParams.referenceId }, function () {
       $scope.item = query.references[0]; 
     });
     
     $scope.save = function () {
-        $location.path('/')
+        var data = {};
+        data.reference_id = $scope.item.reference_id;
+        data.event_id = $scope.item.event_id;
+        data.account_id = $scope.item.account_id;
+        
+        var result = references.update(data, function() {
+            console.log(result.references);
+            if (result.references.affectedRows == 1) {
+                $location.path('/')
+            };
+        });
     } 
 });

@@ -16,8 +16,16 @@
           </div>
         </md-list-item>
       </md-list>
-      <md-divider ></md-divider>
+      <md-divider></md-divider>
       <section>
+        <md-input-container>
+          <label>Nombre del evento</label>
+          <md-select ng-model="item.event_id">
+            <md-option ng-repeat="event in list" value="{{ event.event_id }}">
+              {{ event.event_name }}
+            </md-option>
+          </md-select>
+        </md-input-container>
         <md-switch class="md-primary" ng-model="item.accounts_has_references_on" aria-label="Confirmación">
           Confirmación
         </md-switch>
