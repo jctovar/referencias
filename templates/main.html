@@ -15,6 +15,7 @@
                     <h3 class="blue">{{ item.account_username }} - {{ item.account_firstname }}  {{ item.account_lastname }}</h3>
                     <h4>{{ item.reference_account }}:{{ item.reference_line }}</h4>
                     <p>{{ item.reference_price | currency }} - {{ item.accounts_has_references_timestamp | date:'medium' }}</p>
+                    <p class="indigo">{{ item.event_name }}</p>
                 </div>
                 <md-divider ></md-divider>
             </md-list-item>
