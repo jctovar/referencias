@@ -1,0 +1,36 @@
+<html lang="en" >
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Referencias bancarias!</title>
+    <link href="bower_components/angular-material/angular-material.min.css" rel="stylesheet" >
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+    <link href="css/styles.css" rel="stylesheet">
+  </head>
+  <body ng-app="starter" ng-cloak>
+    <div ng-view>
+      <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+    </div>
+    <div id="footer" ng-include=" 'templates/footer.html' "></div>
+  
+    <script>
+      // You can also require other files to run in this process
+      require('./renderer.js')
+    </script>
+    <!-- Angular requires next libraries -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js" type="text/javascript" ></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
+    <script src="bower_components/angular-gravatar/build/angular-gravatar.js"></script>
+    <!-- Main application js -->
+    <script src="app.js"></script>
+    <script src="js/controllers/main-controllers.js"></script>
+    <script src="js/models/main-models.js"></script>
+    <script src="js/gravatar.ui.js"></script>
+  </body>
+</html>
