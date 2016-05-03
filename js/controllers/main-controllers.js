@@ -33,6 +33,7 @@ angular.module('main.controllers', ['main.models'])
         data.reference_id = $scope.item.reference_id;
         data.event_id = $scope.item.event_id;
         data.account_id = $scope.item.account_id;
+        data.accounts_has_references_on = $scope.item.accounts_has_references_on;
         
         var result = references.update(data, function() {
             console.log(result.references);

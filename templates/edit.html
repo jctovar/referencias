@@ -18,17 +18,17 @@
       </md-list>
       <md-divider></md-divider>
       <section>
-        <md-input-container>
+        <md-switch class="md-primary" ng-model="item.accounts_has_references_on" aria-label="Confirmación">
+          Confirmación
+        </md-switch>
+        <md-input-container class="md-block" flex-gt-xs>
           <label>Nombre del evento</label>
-          <md-select ng-model="item.event_id">
+          <md-select ng-disabled="!item.accounts_has_references_on" ng-model="item.event_id">
             <md-option ng-repeat="event in list" value="{{ event.event_id }}">
               {{ event.event_name }}
             </md-option>
           </md-select>
         </md-input-container>
-        <md-switch class="md-primary" ng-model="item.accounts_has_references_on" aria-label="Confirmación">
-          Confirmación
-        </md-switch>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Folio de pago</label>
           <input ng-disabled="!item.accounts_has_references_on" ng-model="item.accounts_has_references_serie">
