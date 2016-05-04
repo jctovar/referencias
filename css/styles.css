@@ -6,6 +6,10 @@
     text-transform: capitalize;
 }
 
+.right {
+    float: right;
+}
+
 .indigo {
     color: indigo !important;
 }

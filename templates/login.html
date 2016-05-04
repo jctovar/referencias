@@ -1,0 +1,21 @@
+<div layout="column" layout-fill>
+  <div id="footer" ng-include=" 'templates/header.html' "></div>
+  <md-content layout-padding>
+    <md-subheader class="md-warn">Formulario de ingreso</md-subheader>
+    <form name="loginForm">
+      <md-input-container class="md-block" flex-gt-xs>
+        <label>Usuario</label>
+        <md-icon class="md-primary md-hue-3"> person </md-icon>
+        <input ng-model="account_username" type="text" required autofocus>
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-xs>
+        <label>Contraseña</label>
+        <md-icon class="md-warn md-hue-3"> vpn_key </md-icon>
+        <input ng-model="account_password" type="password" required>
+      </md-input-container>
+    </form>
+    <section layout-align="center center" layout="row">
+      <md-button  ng-disabled="!loginForm.$valid" class="md-raised md-primary md-hue-2" ng-click="login()">Ingresar</md-button>
+    </section>
+  </md-content>
+</div>

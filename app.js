@@ -11,9 +11,9 @@ angular.module('starter', ['ngRoute', 'ngResource', 'ngSanitize', 'ngMaterial', 
   
   .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
       $routeProvider
-        .when('/events', {
-          templateUrl: 'templates/events.html',
-          controller: 'eventsCtrl'
+        .when('/main', {
+          templateUrl: 'templates/main.html',
+          controller: 'mainCtrl'
         })   
         .when('/edit/:referenceId', {
           templateUrl: 'templates/edit.html',
@@ -21,7 +21,7 @@ angular.module('starter', ['ngRoute', 'ngResource', 'ngSanitize', 'ngMaterial', 
         }) 
         .otherwise({
           redirectTo: '/',
-          templateUrl: 'templates/main.html',
-          controller: 'mainCtrl'
+          templateUrl: 'templates/login.html',
+          controller: 'loginCtrl'
         });
   }])

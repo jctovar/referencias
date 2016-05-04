@@ -1,19 +1,22 @@
 <div layout="column" layout-fill>
     <div id="footer" ng-include=" 'templates/header.html' "></div>
-    <md-button class="md-fab md-fab-top-right" ng-click="clear()" ng-disabled="!data.searchQuery">        
+    <md-button class="md-fab md-mini md-fab-top-right md-warn" ng-click="clear()" ng-disabled="!searchQuery">        
      <md-icon> clear </md-icon>
+     <md-tooltip md-direction="top"> Limpiar busqueda </md-tooltip>
     </md-button>
     <!-- Inicia contenido -->
     <md-content class="autoScroll page">
-        <md-input-container class="md-icon-float md-block">
-            <label>Buscar...</label>
-            <md-icon> search </md-icon>
-            <input ng-model="data.searchQuery" ng-change="change()">
-        </md-input-container>
+        <md-subheader>
+            <md-input-container class="md-icon-float md-block">
+                <label>Buscar...</label>
+                <md-icon> search </md-icon>
+                <input ng-model="searchQuery" ng-change="change()" autofocus>
+            </md-input-container>
+        </md-subheader>
         <md-progress-linear md-mode="indeterminate" ng-hide="bar">Cargando...</md-progress-linear>
-        <md-list>
+        <md-list layout-padding>
             <md-subheader class="md-no-sticky indigo">Referencias generadas</md-subheader>
-            <md-list-item class="md-3-line" ng-repeat="item in items | filter: data.searchQuery" ng-href="#/edit/{{ item.reference_id }}">
+            <md-list-item class="md-3-line" ng-repeat="item in items | filter: searchQuery" ng-href="#/edit/{{ item.reference_id }}">
                 <img gravatar-src="item.account_email" gravatar-size="100" class="md-avatar" alt="{{ item.account_username }}">
                 <div class="md-list-item-text" layout="column">
                     <h3 class="blue">{{ item.account_username }} - {{ item.account_firstname }}  {{ item.account_lastname }}</h3>
@@ -28,5 +31,6 @@
     <!-- Termina contenido -->
     <md-button class="md-fab md-fab-bottom-right" ng-click="reload()">        
      <md-icon> sync </md-icon>
+     <md-tooltip md-direction="top"> Recargar datos </md-tooltip>
     </md-button>   
 </div>

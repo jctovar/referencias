@@ -1,16 +1,13 @@
-angular.module('main.controllers', ['main.models'])
+angular.module('main.controllers', ['main.models', 'base64'])
 
 .controller('mainCtrl', function ($scope, $route, $routeParams, $location, references) { 
-    $scope.data = {};
-       
     $scope.$on('$viewContentLoaded', function ($evt, data) {
         inito();
-        $scope.data.searchQuery = require('remote').getGlobal('sharedObject').searchQuery;
+        $scope.searchQuery = require('remote').getGlobal('sharedObject').searchQuery;
     });
 
     $scope.change = function () {
-        console.log($scope.data.searchQuery);
-        require('remote').getGlobal('sharedObject').searchQuery = $scope.data.searchQuery;
+        require('remote').getGlobal('sharedObject').searchQuery = $scope.searchQuery;
     }
 
     $scope.reload = function () {
@@ -18,7 +15,7 @@ angular.module('main.controllers', ['main.models'])
     }
     
     $scope.clear = function () {
-        $scope.data.searchQuery = '';
+        $scope.searchQuery = '';
         require('remote').getGlobal('sharedObject').searchQuery = '';
     }
      
@@ -31,8 +28,9 @@ angular.module('main.controllers', ['main.models'])
         });
     }
 })
-.controller('editCtrl', function ($scope, $route, $routeParams, $location, references, events) {
-   
+.controller('editCtrl', function ($scope, $route, $routeParams, $location, $mdToast, references, events) {
+    $scope.counter = 0;
+    
     var list = events.get(function () {
       $scope.list = list.events; 
     });
@@ -41,9 +39,9 @@ angular.module('main.controllers', ['main.models'])
       $scope.item = query.references[0]; 
     });
     
-    $scope.cancel = function () {
-        $location.path('/');
-    }
+    $scope.change = function() {
+        $scope.counter++;
+      };
     
     $scope.save = function () {
         var data = {};
@@ -52,11 +50,36 @@ angular.module('main.controllers', ['main.models'])
         data.account_id = $scope.item.account_id;
         data.accounts_has_references_on = $scope.item.accounts_has_references_on;
         
-        var result = references.update(data, function() {
-            console.log(result.references);
-            if (result.references.affectedRows == 1) {
-                $location.path('/')
-            };
-        });
+        if ($scope.counter != 0) {
+            var result = references.update(data, function() {
+                console.log(result.references);
+                if (result.references.affectedRows == 1) {
+                    $mdToast.show($mdToast.simple().textContent('Datos guardados!'));
+                    $location.path('/main')
+                };
+            });            
+        } else {
+            $location.path('/main')
+        }
+        
+        
     } 
+})
+.controller('loginCtrl', function ($http, $scope, $route, $routeParams, $location, $base64, references) {
+    
+    $scope.account_username = require('remote').getGlobal('sharedObject').account_username;
+    $scope.account_password = require('remote').getGlobal('sharedObject').account_password;
+    
+    
+     
+    $scope.login = function () {
+        require('remote').getGlobal('sharedObject').account_username = $scope.account_username;
+        require('remote').getGlobal('sharedObject').account_password = $scope.account_username;
+        
+        console.log('username...' + require('remote').getGlobal('sharedObject').account_username);
+        $http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode($scope.account_username + ':' + $scope.account_username);
+        
+        
+        $location.path('/main')
+    }
 });

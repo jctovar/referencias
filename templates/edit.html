@@ -18,12 +18,12 @@
       </md-list>
       <md-divider></md-divider>
       <section>
-        <md-switch ng-true-value="1" class="md-primary" ng-model="item.accounts_has_references_on" aria-label="Confirmación">
+        <md-switch ng-true-value="1" class="md-primary" ng-model="item.accounts_has_references_on" aria-label="Confirmación" ng-change="change()">
           Confirmación
         </md-switch>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Nombre del evento</label>
-          <md-select ng-disabled="!item.accounts_has_references_on" ng-model="item.event_id">
+          <md-select ng-disabled="!item.accounts_has_references_on" ng-model="item.event_id" ng-change="change()">
             <md-option ng-repeat="event in list" value="{{ event.event_id }}">
               {{ event.event_name }}
             </md-option>
@@ -31,26 +31,13 @@
         </md-input-container>
         <md-input-container class="md-block" flex-gt-xs>
           <label>Folio de pago</label>
-          <input ng-disabled="!item.accounts_has_references_on" ng-model="item.accounts_has_references_serie">
+          <input ng-disabled="!item.accounts_has_references_on" ng-model="item.accounts_has_references_serie" ng-change="change()">
         </md-input-container>
       </section>
     </md-content>
     <!-- Termina contenido -->   
-    <md-fab-toolbar md-direction="left">
-      <md-fab-trigger class="align-with-text">
-        <md-button aria-label="menu" class="md-fab md-primary">
-          <md-icon> menu </md-icon>
-        </md-button>
-      </md-fab-trigger>
-      <md-toolbar>
-        <md-fab-actions class="md-toolbar-tools">
-          <md-button aria-label="comment" class="md-icon-button" ng-click="cancel()">
-            <md-icon> cancel </md-icon>
-          </md-button>
-          <md-button aria-label="label" class="md-icon-button" ng-click="save()">
-            <md-icon> assignment_turned_in </md-icon>
-          </md-button>
-        </md-fab-actions>
-      </md-toolbar>
-    </md-fab-toolbar> 
+    <md-button class="md-fab md-fab-bottom-right" ng-click="save()">        
+     <md-icon> check </md-icon>
+     <md-tooltip md-direction="top"> Guardar datos </md-tooltip>
+    </md-button>
 </div>
