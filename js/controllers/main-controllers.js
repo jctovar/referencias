@@ -1,12 +1,25 @@
 angular.module('main.controllers', ['main.models'])
 
-.controller('mainCtrl', function ($scope, $route, $routeParams, $location, references) {
+.controller('mainCtrl', function ($scope, $route, $routeParams, $location, references) { 
+    $scope.data = {};
+       
     $scope.$on('$viewContentLoaded', function ($evt, data) {
         inito();
+        $scope.data.searchQuery = require('remote').getGlobal('sharedObject').searchQuery;
     });
+
+    $scope.change = function () {
+        console.log($scope.data.searchQuery);
+        require('remote').getGlobal('sharedObject').searchQuery = $scope.data.searchQuery;
+    }
 
     $scope.reload = function () {
         inito();
+    }
+    
+    $scope.clear = function () {
+        $scope.data.searchQuery = '';
+        require('remote').getGlobal('sharedObject').searchQuery = '';
     }
      
     var inito = function () {
@@ -27,6 +40,10 @@ angular.module('main.controllers', ['main.models'])
     var query = references.get({ id: $routeParams.referenceId }, function () {
       $scope.item = query.references[0]; 
     });
+    
+    $scope.cancel = function () {
+        $location.path('/');
+    }
     
     $scope.save = function () {
         var data = {};
