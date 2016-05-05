@@ -21,7 +21,7 @@ angular.module('main.controllers', ['main.models', 'base64'])
      
     var inito = function () {
         $scope.bar = false;
-        query = references.get()
+        references.get()
         .$promise.then(function (result) {
             $scope.items = result.references;
             $scope.bar = !$scope.bar;
@@ -52,7 +52,6 @@ angular.module('main.controllers', ['main.models', 'base64'])
         
         if ($scope.counter != 0) {
             var result = references.update(data, function() {
-                console.log(result.references);
                 if (result.references.affectedRows == 1) {
                     $mdToast.show($mdToast.simple().textContent('Datos guardados!'));
                     $location.path('/main')
@@ -60,26 +59,21 @@ angular.module('main.controllers', ['main.models', 'base64'])
             });            
         } else {
             $location.path('/main')
-        }
-        
-        
+        } 
     } 
 })
-.controller('loginCtrl', function ($http, $scope, $route, $routeParams, $location, $base64, references) {
-    
-    $scope.account_username = require('remote').getGlobal('sharedObject').account_username;
-    $scope.account_password = require('remote').getGlobal('sharedObject').account_password;
-    
-    
-     
+.controller('loginCtrl', function ($http, $scope, $location, $mdToast, $base64, users) {
+   
     $scope.login = function () {
-        require('remote').getGlobal('sharedObject').account_username = $scope.account_username;
-        require('remote').getGlobal('sharedObject').account_password = $scope.account_username;
+        $http.defaults.headers.common.Authorization = 'Basic ' + $base64.encode($scope.account_username + ':' + $scope.account_password);
         
-        console.log('username...' + require('remote').getGlobal('sharedObject').account_username);
-        $http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode($scope.account_username + ':' + $scope.account_username);
-        
-        
-        $location.path('/main')
+        users.get({ id: $scope.account_username })
+        .$promise.then(function (result) {
+            $location.path('/main')
+        })
+        .catch(function(error) {
+            console.log("rejected " + JSON.stringify(error.data.message));
+            $mdToast.show($mdToast.simple().textContent('Ocurrio un error, verifique sus credenciales!'));
+        });
     }
 });
