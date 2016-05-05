@@ -55,6 +55,6 @@ app.on('activate', function () {
 
 global.sharedObject = {
   searchQuery: '',
-  account_username: '',
-  account_password: ''
+  account_name: '',
+  account_id: ''
 };

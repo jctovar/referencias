@@ -1,9 +1,10 @@
-<md-toolbar class="header">
+<md-toolbar class="header" ng-controller="navCtrl">
     <div class="md-toolbar-tools">
         <md-icon md-svg-src="images/unam.svg" class="s36" aria-label="UNAM"></md-icon>
         <h2>
         <span>&nbsp;UNAM</span>
         </h2>
         <span flex></span>
+        <span class="small capitalize">{{ account_name | lowercase }}</span>
     </div>
 </md-toolbar

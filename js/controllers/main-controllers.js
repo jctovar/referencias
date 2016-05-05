@@ -1,5 +1,10 @@
 angular.module('main.controllers', ['main.models', 'base64'])
 
+.controller('navCtrl', function ($scope) {
+    console.log(require('remote').getGlobal('sharedObject').account_name);
+    $scope.account_name = require('remote').getGlobal('sharedObject').account_name;
+})
+ 
 .controller('mainCtrl', function ($scope, $route, $routeParams, $location, references) { 
     $scope.$on('$viewContentLoaded', function ($evt, data) {
         inito();
@@ -25,6 +30,9 @@ angular.module('main.controllers', ['main.models', 'base64'])
         .$promise.then(function (result) {
             $scope.items = result.references;
             $scope.bar = !$scope.bar;
+        })
+        .catch(function(error) {
+             $location.path('/login')
         });
     }
 })
@@ -63,12 +71,13 @@ angular.module('main.controllers', ['main.models', 'base64'])
     } 
 })
 .controller('loginCtrl', function ($http, $scope, $location, $mdToast, $base64, users) {
-   
     $scope.login = function () {
         $http.defaults.headers.common.Authorization = 'Basic ' + $base64.encode($scope.account_username + ':' + $scope.account_password);
         
         users.get({ id: $scope.account_username })
         .$promise.then(function (result) {
+            require('remote').getGlobal('sharedObject').account_name = result.users[0].user_name;
+            require('remote').getGlobal('sharedObject').account_id = result.users[0].user_id;
             $location.path('/main')
         })
         .catch(function(error) {

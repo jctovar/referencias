@@ -24,7 +24,8 @@
                     <p>{{ item.reference_price | currency }} - {{ item.accounts_has_references_timestamp | date:'medium' }}</p>
                     <p class="indigo">{{ item.event_name }}</p>
                 </div>
-                <md-divider ></md-divider>
+                <md-icon ng-show="item.accounts_has_references_on"> check </md-icon>
+                <md-divider></md-divider>
             </md-list-item>
         </md-list>
     </md-content>
