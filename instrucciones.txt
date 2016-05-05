@@ -1,0 +1,7 @@
+
+
+
+electron-packager ./ --platform=darwin --arch=x64 --icon=iztacala.icns --app-category-type=Iztacala
+
+
+

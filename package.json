@@ -1,6 +1,6 @@
 {
-  "name": "referencias",
-  "version": "0.2.0",
+  "name": "Referencias",
+  "version": "0.7.0",
   "description": "Referencias bancarias",
   "main": "main.js",
   "scripts": {
